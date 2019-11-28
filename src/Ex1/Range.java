@@ -1,6 +1,5 @@
 package Ex1;
 
-
 /**
  * This class represents a simple 1D range of shape [min,max]
  * @author boaz_benmoshe

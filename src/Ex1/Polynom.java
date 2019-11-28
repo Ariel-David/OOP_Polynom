@@ -1,5 +1,4 @@
 package Ex1;
-
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Iterator;

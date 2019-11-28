@@ -1,6 +1,4 @@
 package Ex1;
-
-
 import Ex1.function;
 
 /**
