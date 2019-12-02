@@ -13,7 +13,7 @@ public class MonomTest {
 		int b = 0;
 		int counter = 0;
 		while(flag == true && counter < 20) {
-			for(int i=0; i<20; i++) { // Ok for
+			for(int i=0; i<20; i++) { 
 				try {
 					Monom m1 = new Monom(a,b);
 					assertEquals(b,m1.get_power());
@@ -35,7 +35,6 @@ public class MonomTest {
 				fail("Should get exception!!!");
 			}
 			catch(Exception e) {
-
 			}
 		}
 	}
@@ -52,13 +51,21 @@ public class MonomTest {
 
 	@Test
 	public void testGet_coefficient() {
-		fail("Not yet implemented");
+		//Test Equal
+		Monom m1 = new Monom(-5,3);
+		Monom m2 = new Monom(m1.get_coefficient(),6);
+		double expected = -5;
+		double actual = m2.get_coefficient();
+		assertTrue(expected == actual);
 	}
 
 	@Test
 	public void testGet_power() {
-		fail("Not yet implemented");
-	}
+		Monom m1 = new Monom(6,3);
+		Monom m2 = new Monom(4,3);
+		double expected = 3;
+		double actual = m2.get_power();
+		assertTrue(expected == actual);	}
 
 	@Test
 	public void testDerivative() {
@@ -92,14 +99,25 @@ public class MonomTest {
 
 	@Test
 	public void testIsZero() {
-		Monom m0 = new Monom(0,0);
-		Monom m1 = new Monom();
-		assertEquals(m0.toString(), m1.toString());
+		Monom m = new Monom();
+		Monom m1 = new Monom(0,4);
+		Monom m2 = new Monom(4,4);
+		assertTrue(m.isZero());
+		assertTrue(m1.isZero());
+		assertFalse(m2.isZero());
 	}
 
 	@Test
 	public void testMonomString() {
-		fail("Not yet implemented");
+		//Test Equal
+		Monom m0 = new Monom(0,0);
+		Monom m1 = new Monom();
+		assertEquals(m0.toString(), m1.toString());
+
+		//Test Not Equal
+		Monom m2= new Monom("2x^10");
+		String str ="2.0x^2";
+		assertNotEquals(str.toString(),m2.toString());
 	}
 
 	@Test
@@ -198,17 +216,25 @@ public class MonomTest {
 
 	@Test
 	public void testEqualsMonom() {
-		fail("Not yet implemented");
+		Monom m1 = new Monom(10,2);
+		Monom m2 = new Monom(10,2);
+		Monom m3 = new Monom(m1);
+		Monom m4 = new Monom(11,4);
+		assertTrue(m1.equals(m2));
+		assertTrue(m3.equals(m1));
+		assertFalse(m4.equals(m1));
 	}
 
 	@Test
 	public void testToString() {
-		fail("Not yet implemented");
+		Monom m1 = new Monom(-5,3);
+		String s = ""+m1;
+		assertEquals(s, m1.toString());
 	}
 
 	@Test
 	public void testInitFromString() {
-		fail("Not yet implemented");
+	
 	}
 
 	@Test
