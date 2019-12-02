@@ -187,10 +187,14 @@ public class Monom implements function{
 		if(this._coefficient==m._coefficient && this._power==m._power) {
 			return true;
 		}
-		else {
-			return false;
+		else if(this._power==m._power) {
+			if(Math.abs(this._coefficient) - Math.abs(m._coefficient) <= EPSILON){
+				return true;
+			}
 		}
+			return false;
 	}
+	
 	public String toString() {
 		if(get_coefficient() == 0) {
 			this._power = 0;

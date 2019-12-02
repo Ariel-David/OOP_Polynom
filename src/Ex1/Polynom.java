@@ -121,7 +121,6 @@ public class Polynom implements Polynom_able{
 
 	@Override
 	public void add(Monom m1) {
-		// TODO Auto-generated method stub
 		boolean found=false;
 		Monom temp = null;
 		Iterator<Monom> mymonom = this.iteretor();
@@ -180,30 +179,20 @@ public class Polynom implements Polynom_able{
 			}
 		}
 	}
-
-	public boolean equals(Polynom_able p1) {
-		boolean answer = false;
-		Iterator<Monom> thisIter = this.iteretor();
-		Iterator<Monom> p1Iter = p1.iteretor();
-		while(thisIter.hasNext() && p1Iter.hasNext()){
-			answer = true;
-			Monom m0 = thisIter.next();
-			Monom m1 = p1Iter.next();
-			if(!m0.equals(m1)){
-				answer = false;
-				break;
-			}
-		}
-		return answer;
-	}
-
+		
 	/**
 	 * check if the polynom equals zero
 	 * return true or false
 	 */
 	@Override
 	public boolean isZero() {
-		return (this.polynom.size() == 0);
+		Iterator<Monom> thisIter = this.iteretor();
+		if(thisIter.next().get_coefficient() == 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	@Override
@@ -227,18 +216,7 @@ public class Polynom implements Polynom_able{
 			throw new RuntimeException("worng input");
 		}
 	}
-
-	@Override
-	public Polynom_able copy() {
-		Polynom_able ab= new Polynom();
-		Iterator<Monom> itr = polynom.iterator();
-		while(itr.hasNext()) {
-			Monom m1= itr.next();
-			ab.add(m1);
-		}	
-		return ab;
-	}
-
+	
 	@Override
 	public Polynom_able derivative() {
 		Polynom_able ablep1= new Polynom();
@@ -331,5 +309,17 @@ public class Polynom implements Polynom_able{
 	public function initFromString(String s) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	public Polynom(Polynom pol) {    // Copy constructor
+		polynom = new ArrayList<>();
+		Iterator<Monom> it = pol.iteretor();
+		while(it.hasNext()) {
+			Monom s = new Monom(it.next());
+			polynom.add(s);
+		}
+	}
+	@Override
+	public function copy() {
+		return new Polynom(this);
 	}
 }
