@@ -302,11 +302,6 @@ public class Polynom implements Polynom_able{
 		}
 	}
 
-	@Override
-	public function initFromString(String s) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	public Polynom(Polynom pol) {    // Copy constructor
 		polynom = new ArrayList<>();
 		Iterator<Monom> it = pol.iteretor();
@@ -318,5 +313,10 @@ public class Polynom implements Polynom_able{
 	@Override
 	public function copy() {
 		return new Polynom(this);
+	}
+
+	@Override
+	public function initFromString(String s) {
+		return new Polynom(s);
 	}
 }

@@ -7,16 +7,21 @@ public class ComplexFunction implements complex_function{
 	function right;
 	Operation op;
 
+	public ComplexFunction() {
+		this.left = null;
+		this.right = null;
+		this.op = null;
+	}
 	public ComplexFunction(String s, function cf1, function cf2) {
-		left = cf1;
-		right = cf2;
-		op = getOp(s);
+		this.left = cf1;
+		this.right = cf2;
+		this.op = getOp(s);
 	}
 
 	public ComplexFunction(function cf1) {
-		left = cf1;
-		right = null;
-		op = null;
+		this.left = cf1;
+		this.right = null;
+		this.op = null;
 	}
 
 	@Override
@@ -38,75 +43,83 @@ public class ComplexFunction implements complex_function{
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + op);
 		}
-
 		return ans;
-
 	}
 
 	@Override
 	public function initFromString(String s) {
-		// TODO Auto-generated method stub
-		return null;
+		s.toLowerCase();
+		s.split("[(]");
+		
+		return left;
+
 	}
 
 	@Override
 	public function copy() {
-		// TODO Auto-generated method stub
-		return null;
+		if(right != null) {
+			return new ComplexFunction(this.getOpToString(op), this.left, this.right);
+		}
+		else {
+			return new ComplexFunction(this.left);
+		}
 	}
 
 	@Override
 	public void plus(function f1) {
-		this.left= this.copy();
+		this.left = this.copy();
 		this.right = f1;
 		this.op= Operation.Plus;
 	}
 
 	@Override
 	public void mul(function f1) {
-		// TODO Auto-generated method stub
-
+		this.left = this.copy();
+		this.right = f1;
+		this.op = Operation.Times;
 	}
 
 	@Override
 	public void div(function f1) {
-		// TODO Auto-generated method stub
-
+		this.left = this.copy();
+		this.right = f1;
+		this.op = Operation.Divid;
 	}
 
 	@Override
 	public void max(function f1) {
-		// TODO Auto-generated method stub
-
+		this.left = this.copy();
+		this.right = f1;
+		this.op = Operation.Max;
 	}
 
 	@Override
 	public void min(function f1) {
-		// TODO Auto-generated method stub
-
+		this.left = this.copy();
+		this.right = f1;
+		this.op = Operation.Min;
 	}
 
 	@Override
 	public void comp(function f1) {
-		// TODO Auto-generated method stub
-
+		this.left = this.copy();
+		this.right = f1;
+		this.op = Operation.Comp;
 	}
 
 	@Override
 	public function left() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.left;
 	}
 
 	@Override
 	public function right() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.right;
 	}
 
 	@Override
 	public Operation getOp() {
-		return op;
+		return this.op;
 	}
 
 	private Operation getOp(String s) {
@@ -136,4 +149,38 @@ public class ComplexFunction implements complex_function{
 		return op;
 	}
 
+	private String getOpToString(Operation op) {
+		String s = new String();
+		switch (op) {
+		case Plus:
+			s = ""+"plus";
+			break;
+		case Times:
+			s = ""+"mul";
+			break;
+		case Divid:
+			s = ""+"div";
+			break;
+		case Max:
+			s = ""+"max";
+			break;
+		case Min:
+			s = ""+"min";
+			break;
+		case Comp:
+			s = ""+"comp";
+			break;
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + op);
+		}
+		return s;		
+	}
+	@Override
+	public String toString() {
+		String op = this.getOpToString(this.getOp());
+		String left = this.left.toString();
+		String right = this.right.toString();
+		return ("" + op + "(" + left + "," + right + ")");
+	}
 }
+
