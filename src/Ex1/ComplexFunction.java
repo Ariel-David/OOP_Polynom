@@ -48,11 +48,26 @@ public class ComplexFunction implements complex_function{
 
 	@Override
 	public function initFromString(String s) {
-		s.toLowerCase();
-		s.split("[(]");
-		
-		return left;
-
+		boolean flag = true;
+		int count = 0;
+		while(flag) {
+			if(s.contains("(")) {
+				count++;
+			}
+			if(s.contains(")")){
+				count--;
+			}
+			else {
+				flag = false;
+				String [] Left = s.split("[,]");
+				String right = s.substring(',',s.length());
+			}
+			int left = s.indexOf('(')+1;
+			int right = s.lastIndexOf(')');
+			s = s.substring(left, right);
+			
+		}
+		return initFromString(s);
 	}
 
 	@Override

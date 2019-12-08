@@ -1,8 +1,10 @@
-package Ex1;
+package Ex1Testing;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import Ex1.Monom;
 
 public class MonomTest {
 
