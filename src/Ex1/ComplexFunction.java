@@ -10,18 +10,25 @@ public class ComplexFunction implements complex_function{
 	public ComplexFunction() {
 		this.left = null;
 		this.right = null;
-		this.op = null;
+		this.op = Operation.None;
 	}
+
 	public ComplexFunction(String s, function cf1, function cf2) {
 		this.left = cf1;
 		this.right = cf2;
 		this.op = getOp(s);
 	}
 
+	public ComplexFunction(Operation op, function cf1, function cf2) {
+		this.left = cf1;
+		this.right = cf2;
+		this.op = op;
+	}
+
 	public ComplexFunction(function cf1) {
 		this.left = cf1;
 		this.right = null;
-		this.op = null;
+		this.op = Operation.None;
 	}
 
 	@Override
@@ -38,7 +45,23 @@ public class ComplexFunction implements complex_function{
 			ans = left.f(x) * right.f(x);
 			break;
 		case Comp:
-			ans = 0;
+			ans = left.f(right.f(x));
+			break;
+		case Max:
+			if(left.f(x) > right.f(x)) {
+				ans = left.f(x);
+			}
+			else {
+				ans = right.f(x);
+			}
+			break;
+		case Min:
+			if(left.f(x) < right.f(x)) {
+				ans = left.f(x);
+			}
+			else {
+				ans = right.f(x);
+			}
 			break;
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + op);
@@ -48,32 +71,22 @@ public class ComplexFunction implements complex_function{
 
 	@Override
 	public function initFromString(String s) {
-		boolean flag = true;
-		int count = 0;
-		while(flag) {
-			if(s.contains("(")) {
-				count++;
-			}
-			if(s.contains(")")){
-				count--;
-			}
-			else {
-				flag = false;
-				String [] Left = s.split("[,]");
-				String right = s.substring(',',s.length());
-			}
-			int left = s.indexOf('(')+1;
-			int right = s.lastIndexOf(')');
-			s = s.substring(left, right);
-			
+		if(s.indexOf("(") == -1 && s.indexOf(")") == -1) {
+			return new Polynom(s);
 		}
-		return initFromString(s);
+		int openParen = s.indexOf("(");
+		int indexSep = commaIndex(s,openParen);
+		String oper = s.substring(0, openParen);
+		function left = initFromString(s.substring(openParen+1,indexSep));
+		function right = initFromString(s.substring(indexSep+1,s.length()-1));
+		ComplexFunction answer = new ComplexFunction(oper,right,left);
+		return answer;
 	}
 
 	@Override
 	public function copy() {
 		if(right != null) {
-			return new ComplexFunction(this.getOpToString(op), this.left, this.right);
+			return new ComplexFunction(this.op, this.left, this.right);
 		}
 		else {
 			return new ComplexFunction(this.left);
@@ -158,44 +171,43 @@ public class ComplexFunction implements complex_function{
 		case "comp":
 			op = Operation.Comp;
 			break;
+		case "none":
+			op = Operation.None;
+			break;
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + s);
 		}
 		return op;
 	}
 
-	private String getOpToString(Operation op) {
-		String s = new String();
-		switch (op) {
-		case Plus:
-			s = ""+"plus";
-			break;
-		case Times:
-			s = ""+"mul";
-			break;
-		case Divid:
-			s = ""+"div";
-			break;
-		case Max:
-			s = ""+"max";
-			break;
-		case Min:
-			s = ""+"min";
-			break;
-		case Comp:
-			s = ""+"comp";
-			break;
-		default:
-			throw new IllegalArgumentException("Unexpected value: " + op);
+	private int commaIndex(String s, int p) {
+		int comma = 0;
+		int paren = 1;
+		int index = p + 1;
+		while(index < s.length() && paren != comma) {
+			if(s.charAt(index) == '('){
+				paren++;
+			}
+			if(s.charAt(index) == ',') {
+				comma++;
+			}
+			index++;
 		}
-		return s;		
+		return index-1;
 	}
+
 	@Override
 	public String toString() {
-		String op = this.getOpToString(this.getOp());
+		String op = getOp().toString();
 		String left = this.left.toString();
-		String right = this.right.toString();
-		return ("" + op + "(" + left + "," + right + ")");
+		if(this.right == null) {
+			return ("(" + left + ")");
+		}
+		else {
+			String right = this.right.toString();
+			return (op + "(" + left + "," + right + ")");
+		}
+
 	}
 }
 
