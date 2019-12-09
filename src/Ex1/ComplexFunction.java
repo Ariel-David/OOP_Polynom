@@ -63,6 +63,10 @@ public class ComplexFunction implements complex_function{
 				ans = right.f(x);
 			}
 			break;
+		case None:
+			ans = left.f(x);
+			break;
+			
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + op);
 		}
@@ -209,5 +213,11 @@ public class ComplexFunction implements complex_function{
 		}
 
 	}
+	public boolean equals(Object obj) {
+
+		return false;
+
+	}
+
 }
 
