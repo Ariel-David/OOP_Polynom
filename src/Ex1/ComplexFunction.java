@@ -5,7 +5,6 @@ public class ComplexFunction implements complex_function{
 	function right;
 	Operation op;
 
-
 	public ComplexFunction(String s, function cf1, function cf2) {
 		this.left = cf1;
 		this.right = cf2;

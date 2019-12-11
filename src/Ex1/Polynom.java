@@ -66,6 +66,7 @@ public class Polynom implements Polynom_able{
 	 * sort the polynom
 	 * @param list: is a Arraylist of Monoms represents a Polynom
 	 */
+	
 	private ArrayList<Monom> sortAndMerge(ArrayList<Monom> list){	
 		ArrayList<Monom> s = new ArrayList<Monom>();
 		for (int i = 0; i < list.size(); i++) {
