@@ -1,9 +1,6 @@
 package Ex1;
-import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.function.Predicate;
-
 
 public class Polynom implements Polynom_able{
 	ArrayList<Monom> polynom;	
@@ -20,8 +17,9 @@ public class Polynom implements Polynom_able{
 	 *  {"(2x^2-4)*(-1.2x-7.1)", "(3-3.4x+1)*((3.1x-1.2)-(3X^2-3.1))"};
 	 * @param s: is a string represents a Polynom
 	 */
-	
+
 	public Polynom(String s) {
+		s = s.toLowerCase();
 		if(s.contains("(") || s.contains(")")) {
 			throw new RuntimeException("Error. Polynom cannot contains the char ( or ) ");
 		}
@@ -253,7 +251,7 @@ public class Polynom implements Polynom_able{
 	public Iterator<Monom> iteretor() {
 		return this.polynom.iterator();		
 	}
-	
+
 	@Override
 	public void multiply(Monom m1) {
 		Polynom p1 = new Polynom();
@@ -310,13 +308,30 @@ public class Polynom implements Polynom_able{
 			polynom.add(s);
 		}
 	}
+
 	@Override
 	public function copy() {
 		return new Polynom(this);
 	}
 
 	@Override
+	public boolean equals(Object obj) {
+		boolean ans = true;
+		Polynom p = new Polynom(obj.toString());
+		for(int i=0; i<50; i++) {
+			if(this.f(i) == p.f(i) && ans) {
+				ans = true;
+			}
+			else {
+				ans = false;
+			}
+		}
+		return ans;
+
+	}
+	@Override
 	public function initFromString(String s) {
 		return new Polynom(s);
 	}
+
 }

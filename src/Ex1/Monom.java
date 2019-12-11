@@ -229,10 +229,10 @@ public class Monom implements function{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
 	@Override
 	public function copy() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Monom(this);
 	}
 
 

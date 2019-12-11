@@ -1,14 +1,10 @@
 package Ex1Testing;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
-
 import java.util.Iterator;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import Ex1.Monom;
 import Ex1.Polynom;
 
@@ -16,12 +12,13 @@ public class PolynomTest {
 	String Ok[];
 	String NotOk[];
 	Polynom p1, p2, p3;
-
+	
 	@BeforeEach
 	void setUp() throws Exception {
 		Ok = new String [] {"x^2", "3x^2+5-3x","25*x^7-3*x^2+3","x","-5","5x-x^3-5-x"};
-		NotOk = new String[] {"+x","5a, xx, x^-2","8**2, 9x--6x^2", "6x^"};
+		NotOk = new String[] {"+x","5a, xx, x^-2", "8**2, 9x--6x^2", "6x^"};
 	}
+	
 	@Test
 	public void testPolynom() {
 		p1 = new Polynom();
@@ -203,7 +200,6 @@ public class PolynomTest {
 		Monom m1 = new Monom();
 		p1.multiply(m1);
 		assertEquals("0",p1.toString());
-		
 	}
 
 	@Test
@@ -222,17 +218,25 @@ public class PolynomTest {
 
 	@Test
 	public void testInitFromString() {
-		fail("Not yet implemented");
+		String s = "2.0x^4 + 6.2x -8.0";
+		p1 = new Polynom("2x^4+6.2-8");
+		p2 = new Polynom();
+		p3 = (Polynom) p2.initFromString(s);
+		assertEquals(p3.toString(),s);
 	}
 
 	@Test
 	public void testPolynomPolynom() {
-		fail("Not yet implemented");
+		p1 = new Polynom("x+4");
+		p2 = new Polynom(p1);
+		assertEquals(p1.toString(), p2.toString());
 	}
 
 	@Test
 	public void testCopy() {
-		fail("Not yet implemented");
+		p1 = new Polynom("x+4");
+		p2 = (Polynom) p1.copy();
+		assertEquals(p1.toString(), p2.toString());
 	}
 
 }

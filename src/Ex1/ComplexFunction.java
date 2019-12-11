@@ -1,17 +1,10 @@
 package Ex1;
 
-import java.util.Iterator;
-
 public class ComplexFunction implements complex_function{
 	function left;
 	function right;
 	Operation op;
 
-	public ComplexFunction() {
-		this.left = null;
-		this.right = null;
-		this.op = Operation.None;
-	}
 
 	public ComplexFunction(String s, function cf1, function cf2) {
 		this.left = cf1;
@@ -64,11 +57,15 @@ public class ComplexFunction implements complex_function{
 			}
 			break;
 		case None:
-			ans = left.f(x);
+			if(right() == null) {
+				ans = this.left().f(x);
+			}
+			if(left() == null) {
+				ans = this.right().f(x);
+			}
 			break;
-			
 		default:
-			throw new IllegalArgumentException("Unexpected value: " + op);
+			break;
 		}
 		return ans;
 	}
@@ -78,13 +75,13 @@ public class ComplexFunction implements complex_function{
 		if(s.indexOf("(") == -1 && s.indexOf(")") == -1) {
 			return new Polynom(s);
 		}
-		int openParen = s.indexOf("(");
-		int indexSep = commaIndex(s,openParen);
-		String oper = s.substring(0, openParen);
-		function left = initFromString(s.substring(openParen+1,indexSep));
-		function right = initFromString(s.substring(indexSep+1,s.length()-1));
-		ComplexFunction answer = new ComplexFunction(oper,right,left);
-		return answer;
+		int openP = s.indexOf("(");
+		int indx = commaIndex(s,openP);
+		String oper = s.substring(0, openP);
+		function left = initFromString(s.substring(openP+1, indx));
+		function right = initFromString(s.substring(indx+1,s.length()-1));
+		ComplexFunction ans = new ComplexFunction(oper,left,right);
+		return ans;
 	}
 
 	@Override
@@ -101,7 +98,7 @@ public class ComplexFunction implements complex_function{
 	public void plus(function f1) {
 		this.left = this.copy();
 		this.right = f1;
-		this.op= Operation.Plus;
+		this.op = Operation.Plus;
 	}
 
 	@Override
@@ -155,6 +152,8 @@ public class ComplexFunction implements complex_function{
 	}
 
 	private Operation getOp(String s) {
+		s = s.replaceAll("\\s","");
+		s = s.toLowerCase();
 		Operation op;
 		switch (s) {
 		case "plus":
@@ -166,16 +165,25 @@ public class ComplexFunction implements complex_function{
 		case "div":
 			op = Operation.Divid;
 			break;
+		case "divid":
+			op = Operation.Divid;
+			break;
 		case "max":
 			op = Operation.Max;
 			break;
 		case "min":
 			op = Operation.Min;
 			break;
+		case "times":
+			op = Operation.Times;
+			break;
 		case "comp":
 			op = Operation.Comp;
 			break;
 		case "none":
+			op = Operation.None;
+			break;
+		case "":
 			op = Operation.None;
 			break;
 		default:
@@ -201,21 +209,44 @@ public class ComplexFunction implements complex_function{
 	}
 
 	@Override
+	public boolean equals(Object obj) {
+		boolean ans = true;
+		function cf = new ComplexFunction((function) obj);
+		for(int i=0; i<50; i++) {
+			if(this.f(i) == cf.f(i) && ans) {
+				ans = true;
+			}
+			else {
+				ans = false;
+			}
+		}
+		return ans;
+
+	}
+
+	public void setOp(Operation op) {
+		this.op = op;
+	}
+
+	public void setLeft(function left) {
+		this.left = left;
+	}
+
+	public void setRight(function right) {
+		this.right = right;
+	}
+
+	@Override
 	public String toString() {
 		String op = getOp().toString();
 		String left = this.left.toString();
 		if(this.right == null) {
-			return ("(" + left + ")");
+			return (left);
 		}
 		else {
 			String right = this.right.toString();
 			return (op + "(" + left + "," + right + ")");
 		}
-
-	}
-	public boolean equals(Object obj) {
-
-		return false;
 
 	}
 

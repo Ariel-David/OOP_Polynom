@@ -241,7 +241,9 @@ public class MonomTest {
 
 	@Test
 	public void testCopy() {
-		fail("Not yet implemented");
+		Monom m = new Monom("3x");
+		Monom m1 = (Monom) m.copy();
+		assertEquals(m.toString(), m1.toString());
 	}
 
 }
