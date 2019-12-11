@@ -210,10 +210,11 @@ public class ComplexFunction implements complex_function{
 
 	@Override
 	public boolean equals(Object obj) {
+		final double EPSILON  = 0.0000001;
 		boolean ans = true;
 		function cf = new ComplexFunction((function) obj);
 		for(int i=0; i<50; i++) {
-			if(this.f(i) == cf.f(i) && ans) {
+			if(this.f(i) - cf.f(i) <= EPSILON && ans) {
 				ans = true;
 			}
 			else {
