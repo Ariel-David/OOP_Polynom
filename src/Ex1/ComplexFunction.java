@@ -32,6 +32,9 @@ public class ComplexFunction implements complex_function{
 			ans =  left.f(x) + right.f(x);
 			break;
 		case Divid:
+			if(right.f(x) == 0) {
+				throw new IllegalArgumentException("Error. Cannot divid by zero.");
+			}
 			ans = left.f(x) / right.f(x);
 			break;
 		case Times:
