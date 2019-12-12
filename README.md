@@ -14,10 +14,10 @@ sorted from highest power to the lowest. Each of those classes has a different m
 7.None   
 
 # The complex function can be represented by five ways:
-1.An operator and two Complex Functions in parenthesis with a comma bitween them.
-2.An operator and a Complex Function or a Polynom or a Monom in parenthesis of ether side the comma.
-3.An operator and two Polynoms in parenthesis with a comma bitween them.
-4.An operator and two Monoms in parenthesis with a comma bitween them.
-5.An operator and a Polynom and a Monom in parenthesis of ether side the comma.
-
+1.An operator and two Complex Functions in parenthesis with a comma bitween them.           
+2.An operator and a Complex Function or a Polynom or a Monom in parenthesis of ether side the comma.               
+3.An operator and two Polynoms in parenthesis with a comma bitween them.            
+4.An operator and two Monoms in parenthesis with a comma bitween them.               
+5.An operator and a Polynom and a Monom in parenthesis of ether side the comma.            
+                 
 This project was written by Ariel David
