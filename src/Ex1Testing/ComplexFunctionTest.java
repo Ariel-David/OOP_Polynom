@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.Test;
 import Ex1.ComplexFunction;
+import Ex1.Monom;
 import Ex1.Operation;
 import Ex1.Polynom;
 
@@ -118,9 +119,9 @@ public class ComplexFunctionTest {
 	public void testEqualsObject() {
 		p1 = new Polynom("x^2");
 		p2 = new Polynom("x");
-		cf1 = new ComplexFunction(p1);
+		cf1 = new ComplexFunction("mul",p1,new Monom("1"));
 		cf2 = new ComplexFunction("mul",p2,p2);
-		cf3 = new ComplexFunction(Operation.Divid,p1,p2);
+		cf3 = new ComplexFunction(Operation.Divid,p1,new Monom("5"));
 		assertTrue(cf1.equals(cf2));
 		assertFalse(cf3.equals(p2));
 	}

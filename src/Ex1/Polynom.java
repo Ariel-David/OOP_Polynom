@@ -321,7 +321,7 @@ public class Polynom implements Polynom_able{
 		final double EPSILON  = 0.0000001;
 		boolean ans = true;
 		Polynom p = new Polynom(obj.toString());
-		for(int i=0; i<50; i++) {
+		for(int i=-10; i<10; i++) {
 			if(this.f(i) - p.f(i) <= EPSILON && ans) {
 				ans = true;
 			}

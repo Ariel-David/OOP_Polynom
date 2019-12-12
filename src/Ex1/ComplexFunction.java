@@ -215,7 +215,7 @@ public class ComplexFunction implements complex_function{
 		final double EPSILON  = 0.0000001;
 		boolean ans = true;
 		function cf = new ComplexFunction((function) obj);
-		for(int i=0; i<50; i++) {
+		for(int i=-10; i<11; i++) {
 			if(this.f(i) - cf.f(i) <= EPSILON && ans) {
 				ans = true;
 			}
